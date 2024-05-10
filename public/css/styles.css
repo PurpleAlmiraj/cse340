@@ -4,3 +4,30 @@
 *:after {
   box-sizing: border-box;
 }
+* {
+  align-items: center;
+}
+
+#top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.siteName {
+  flex: 1; 
+}
+
+#tools {
+  margin-left: auto; 
+}
+
+.item-box {
+  background-color: lightblue;
+}
+nav {
+  color: white;
+  background-color: rgb(60, 60, 60);
+  margin: 10px;
+  display: flex;
+}
