@@ -1,1 +1,9 @@
-<h1>There is an Error</h1>
+<!-- Error Handling -->
+
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+        res.redirect('/')
+    } %>
+            
+    <%- message %>
