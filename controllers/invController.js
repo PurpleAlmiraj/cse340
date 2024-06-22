@@ -1,21 +1,38 @@
 const invModel = require("../models/inventory-model");
-const utilities = require("../utilities/");
+const utilities = require("../utilities/utilities");
 
 const invCont = {};
 const errormess = {};
 
-// Render management view
 invCont.renderManagementView = async function (req, res, next) {
+  try {
+    let nav = await utilities.getNav();
+    const managementData = await invModel.getManagementData(); // Call getManagementData
+    res.render("inventory/management", {
+      title: "Inventory Management",
+      nav,
+      managementData,
+      errors: null
+    });
+  } catch (error) {
+    console.error("Error rendering management view:", error);
+    next(error);
+  }
+};
+
+
+
+// Render add-classification view
+invCont.renderAddClassificationView = async function (req, res, next) {
     try {
-        const managementData = await invModel.getManagementData();
         let nav = await utilities.getNav();
-        res.render("./inventory/management", {
-            title: "Inventory Management",
+        res.render("./inventory/add-classification", {
+            title: "Add New Classification",
             nav,
-            managementData,
+            errors: null
         });
     } catch (error) {
-        console.error("Error rendering management view:", error);
+        console.error("Error rendering add-classification view:", error);
         next(error);
     }
 };
@@ -29,6 +46,7 @@ invCont.renderAddInventoryView = async function (req, res, next) {
             title: "Add Inventory",
             nav,
             classificationList,
+            errors: null
         });
     } catch (error) {
         console.error("Error rendering add inventory view:", error);
@@ -74,12 +92,12 @@ invCont.addNewClassification = async function (req, res, next) {
         console.error("Error adding new classification:", error);
         req.flash("error", "Failed to add new classification.");
         res.redirect("/inv/add-classification");
-      }
-    };
-    
-    // Build Error
-    errormess.buildError = (req, res, next) => {
-      throw new Error("Intentional error occurred");
-    };
-    
-    module.exports = { invCont, errormess };
+    }
+};
+
+// Build Error
+errormess.buildError = (req, res, next) => {
+    throw new Error("Intentional error occurred");
+};
+
+module.exports = { invCont, errormess };

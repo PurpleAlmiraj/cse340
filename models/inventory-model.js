@@ -46,4 +46,22 @@ async function addNewClassification(classification_name) {
     }
 }
 
-module.exports = { getClassifications, getInventoryByClassificationId, getInventoryByID, addNewClassification };
+async function getManagementData() {
+  try {
+    const inventoryData = await pool.query('SELECT * FROM inventory');
+    const classificationData = await pool.query('SELECT * FROM classification');
+    
+    const managementData = {
+      inventory: inventoryData.rows,
+      classifications: classificationData.rows
+    };
+    
+
+    return managementData;
+  } catch (error) {
+    console.error('Error fetching management data:', error);
+    throw error; 
+  }
+}
+
+module.exports = { getClassifications, getInventoryByClassificationId, getInventoryByID, addNewClassification, getManagementData };
