@@ -1,0 +1,36 @@
+<% let title = "Inventory Management" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head') %>
+<body>
+    <div id="wrapper">
+        <%- include('../partials/header') %>
+        <%- include('../partials/navigation') %>
+
+        <main>
+            <!-- Flash Messages -->
+            <% if (typeof messages !== 'undefined' && messages.length > 0) { %>
+                <div class="flash-messages">
+                    <% messages.forEach(message => { %>
+                        <div class="flash-message <%= message.type %>">
+                            <%= message.text %>
+                        </div>
+                    <% }) %>
+                </div>
+            <% } %>
+
+            <!-- Heading -->
+            <h1>Inventory Management</h1>
+
+            <!-- Links -->
+            <div class="management-links">
+                <a href="/inv/add-classification">Add New Classification</a>
+                <a href="/inv/add">Add New Inventory</a>
+            </div>
+        </main>
+
+        <%- include('../partials/footer') %>
+    </div>
+</body>
+</html>

@@ -193,6 +193,119 @@ a:hover {
   text-decoration: underline;
 }
 
+/* Login Form Styling */
+#loginform {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#loginform label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+#loginform input[type="email"],
+#loginform input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#loginform #passwordbtn {
+  cursor: pointer;
+  color: blue;
+}
+
+#loginform button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#loginform button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+#registeraccount {
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Register Form Styling */
+#registerform {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#registerform label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+#registerform input[type="text"],
+#registerform input[type="email"],
+#registerform input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#registerform span {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 0.9em;
+  color: #777;
+}
+
+#registerform #passwordbtn {
+  cursor: pointer;
+  color: blue;
+}
+
+#registerform button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#registerform button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.notice {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.notice li {
+  color: red;
+  font-size: 0.9em;
+}
+
+
 @media only screen and (min-width: 750px) {
 
   body {

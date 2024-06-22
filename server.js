@@ -58,39 +58,44 @@ app.get("/", utilities.handleErrors(baseController.buildHome))
 app.use("/inv", inventoryRoute)
 app.use("/account", accountRoute)
 
-/* ***********************
-* Express Error Handler
-* Place after all other middleware
-*************************/
-app.use(async (req, res, next) => {
-  next({status: 500, message: "This is intentional."})
-});
 
-app.use(async (req, res, next) => {
-  next({ status: 404, message: "Sorry, we appear to have lost that page." });
-});
-
-/* ***********************
-* Express Error Handler
-* Place after all other middleware
-*************************/
-app.use(async (err, req, res, next) => {
+// Route to handle the 500 error explicitly
+app.get("/error-500", async (req, res) => {
   let nav = await utilities.getNav();
-  console.error(`Error at: "${req.originalUrl}": ${err.message}`);
   res.status(500).render("errors/error", {
-    title: "Muahahaha",
-    message: "You have encountered a 500 error!",
+    title: "Server Error",
+    message: "Internal Server Error",
     nav
   });
 });
 
+/* ***********************
+* Express Error Handler
+* Place after all other middleware
+*************************/
+
 app.use(async (err, req, res, next) => {
   let nav = await utilities.getNav()
   console.error(`Error at: "${req.originalUrl}": ${err.message}`)
-  if(err.status == 404){ message = err.message} else {message = 'Oh no! There was a crash. Maybe try a different route?'}
-  res.render("errors/error", {
+  if (err.status == 404) { 
+    message = err.message
+  } else {
+    message = 'Oh no! There was a crash. Maybe try a different route?'
+  }
+  res.status(err.status || 500).render("errors/error", {
     title: err.status || 'Server Error',
     message,
+    nav
+  })
+})
+
+// Express Error Handler for general errors
+app.use(async (err, req, res, next) => {
+  let nav = await utilities.getNav()
+  console.error(`Error at: "${req.originalUrl}": ${err.message}`)
+  res.status(500).render("errors/error", {
+    title: "Muahahaha",
+    message: "You have encountered a 500 error!",
     nav
   })
 })

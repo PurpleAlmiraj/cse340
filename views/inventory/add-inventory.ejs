@@ -1,0 +1,58 @@
+<% let title = "Add Inventory" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head') %>
+<body>
+    <div id="wrapper">
+        <%- include('../partials/header') %>
+        <%- include('../partials/navigation') %>
+
+        <main>
+            <!-- Heading -->
+            <h1>Add Inventory</h1>
+            
+            <!-- Flash Messages -->
+            <% if (typeof messages !== 'undefined' && messages.length > 0) { %>
+                <div class="flash-messages">
+                    <% messages.forEach(message => { %>
+                        <div class="flash-message <%= message.type %>">
+                            <%= message.text %>
+                        </div>
+                    <% }); %>
+                </div>
+            <% } %>
+
+            <!-- Inventory Form -->
+            <form action="/inventory/add" method="post" id="inventoryForm">
+                <div class="form-group">
+                    <label for="make">Make:</label>
+                    <input type="text" id="make" name="make" required>
+                </div>
+                <div class="form-group">
+                    <label for="model">Model:</label>
+                    <input type="text" id="model" name="model" required>
+                </div>
+                <div class="form-group">
+                    <label for="year">Year:</label>
+                    <input type="number" id="year" name="year" required>
+                </div>
+                <div class="form-group">
+                    <label for="classification">Classification:</label>
+                    <!-- Sticky select list for classifications -->
+                    <%- classificationList %>
+                </div>
+                <div class="form-group">
+                    <label for="image">Image:</label>
+                    <input type="file" id="image" name="image" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <button type="submit">Add Inventory</button>
+                </div>
+            </form>
+        </main>
+
+        <%- include('../partials/footer') %>
+    </div>
+</body>
+</html>
