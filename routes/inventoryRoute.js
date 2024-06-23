@@ -31,6 +31,9 @@ router.post("/add-classification", utilities.handleErrors(invCont.addNewClassifi
 // Route to render add inventory view
 router.get("/add-inventory", utilities.handleErrors(invCont.renderAddInventoryView));
 
+// Route to handle form submission for adding a new inventory
+router.post("/add-inventory", utilities.handleErrors(invCont.addNewInventory));
+
 // Route to build inventory by classification view
 router.get("/type/:classificationId", utilities.handleErrors(invCont.buildByClassificationId));
 

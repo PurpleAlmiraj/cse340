@@ -24,7 +24,7 @@ invCont.renderManagementView = async function (req, res, next) {
 invCont.renderAddClassificationView = async function (req, res, next) {
   try {
     let nav = await utilities.getNav();
-    res.render("./inventory/add-classification", {
+    res.render("./inventory/add-classification.ejs", {
       title: "Add New Classification",
       nav,
       errors: null
@@ -40,7 +40,7 @@ invCont.renderAddInventoryView = async function (req, res, next) {
   try {
     const classificationList = await utilities.buildClassificationList();
     let nav = await utilities.getNav();
-    res.render("./inventory/add-inventory", {
+    res.render("./inventory/add-inventory.ejs", {
       title: "Add Inventory",
       nav,
       classificationList,
