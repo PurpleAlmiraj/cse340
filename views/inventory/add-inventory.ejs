@@ -1,32 +1,32 @@
 <% let title = "Add Inventory" %>
 
 
-            <% if (title) { %>
-                <h1><%= title %></h1>
-            <% } %>
+<% if (title) { %>
+    <h1><%= title %></h1>
+<% } %>
 
-            <form action="/inv/add-inventory" method="POST" id="inventoryForm"  enctype="multipart/form-data" onsubmit="return validateInventoryForm()">
-                <div class="form-group">
-                    <label for="make">Make:</label>
-                    <input type="text" id="make" name="make" required>
-                </div>
-                <div class="form-group">
-                    <label for="model">Model:</label>
-                    <input type="text" id="model" name="model" required>
-                </div>
-                <div class="form-group">
-                    <label for="year">Year:</label>
-                    <input type="number" id="year" name="year" required>
-                </div>
-                <div class="form-group">
-                    <label for="classification">Classification:</label>
-                    <%- classificationList %>
-                </div>
-                <div class="form-group">
-                    <label for="image">Image:</label>
-                    <input type="file" id="image" name="image" accept="image/*">
-                </div>
-                <div class="form-group">
-                    <button type="submit">Add Inventory</button>
-                </div>
-            </form>
+<form action="/inv/add-inventory" method="POST" id="inventoryForm"  enctype="multipart/form-data" onsubmit="return validateInventoryForm()">
+    <div class="form-group">
+        <label for="make">Make:</label>
+        <input type="text" id="make" name="make" required>
+    </div>
+    <div class="form-group">
+        <label for="model">Model:</label>
+        <input type="text" id="model" name="model" required>
+    </div>
+        <div class="form-group">
+            <label for="year">Year:</label>
+            <input type="number" id="year" name="year" required>
+        </div>
+        <div class="form-group">
+            <label for="classification">Classification:</label>
+            <%- classificationList %>
+        </div>
+        <div class="form-group">
+            <label for="image">Image:</label>
+            <input type="file" id="image" name="image" accept="image/*">
+        </div>
+        <div class="form-group">
+            <button type="submit">Add Inventory</button>
+        </div>
+</form>
