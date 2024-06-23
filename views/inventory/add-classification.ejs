@@ -1,41 +1,10 @@
-<% let title = "Add Classification" %>
+<% if (title) { %>
+    <h1><%= title %></h1>
+  <% } %>
+  
+  <form action="/inv/add-classification" method="POST" onsubmit="return validateForm()">
+    <label for="classification_name">Classification Name:</label>
+    <input type="text" id="classification_name" name="classification_name" value="<%= typeof classification_name !== 'undefined' ? classification_name : '' %>" required>
+    <button type="submit">Add Classification</button>
+  </form>
 
-<!DOCTYPE html>
-<html lang="en">
-<%- include('../partials/head') %>
-<body>
-    <div id="wrapper">
-        <%- include('../partials/header') %>
-        <%- include('../partials/navigation') %>
-
-        <main>
-            <!-- Heading -->
-            <h1>Add Classification</h1>
-            
-            <!-- Flash Messages -->
-            <% if (typeof messages !== 'undefined' && messages.length > 0) { %>
-                <div class="flash-messages">
-                    <% messages.forEach(message => { %>
-                        <div class="flash-message <%= message.type %>">
-                            <%= message.text %>
-                        </div>
-                    <% }); %>
-                </div>
-            <% } %>
-
-            <!-- Classification Form -->
-            <form action="/inventory/add-classification" method="post" id="classificationForm">
-                <div class="form-group">
-                    <label for="classificationName">Classification Name:</label>
-                    <input type="text" id="classificationName" name="classification_name" required>
-                </div>
-                <div class="form-group">
-                    <button type="submit">Add Classification</button>
-                </div>
-            </form>
-        </main>
-
-        <%- include('../partials/footer') %>
-    </div>
-</body>
-</html>
