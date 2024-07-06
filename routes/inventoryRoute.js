@@ -1,46 +1,65 @@
 const express = require("express");
 const router = new express.Router();
-const utilities = require("../utilities/utilities");
-const invModel = require("../models/inventory-model"); 
+const utilities = require("../utilities/index");
 const { invCont, errormess } = require("../controllers/invController");
-
-// Route to management view
-router.get("/", async (req, res, next) => { 
-    try {
-        console.log("Accessing management view");
-        const managementData = await invModel.getManagementData();
-        console.log("Management data:", managementData);
-        let nav = await utilities.getNav();
-        res.render("./inventory/management", {
-            title: "Inventory Management",
-            nav,
-            managementData,
-        });
-    } catch (error) {
-        console.error("Error rendering management view:", error);
-        next(error);
-    }
-});
-
-// Route to render add-classification view
-router.get("/add-classification", utilities.handleErrors(invCont.renderAddClassificationView));
-
-// Route to handle form submission for adding a new classification
-router.post("/add-classification", utilities.handleErrors(invCont.addNewClassification));
-
-// Route to render add inventory view
-router.get("/add-inventory", utilities.handleErrors(invCont.renderAddInventoryView));
-
-// Route to handle form submission for adding a new inventory
-router.post("/add-inventory", utilities.handleErrors(invCont.addNewInventory));
+const invValidate = require("../utilities/classification-validation")
 
 // Route to build inventory by classification view
-router.get("/type/:classificationId", utilities.handleErrors(invCont.buildByClassificationId));
+router.get("/type/:classificationId", 
+    utilities.handleErrors(invCont.buildByClassificationId));
 
 // Route to build single view
-router.get("/detail/:inventoryId", utilities.handleErrors(invCont.buildByInventoryId));
+router.get("/detail/:inventoryId", 
+    utilities.handleErrors(invCont.buildByInventoryId));
+
+// Route for management view
+router.get("/", 
+    utilities.checkEmployeeStatus,
+    utilities.handleErrors(invCont.management));
+
+// Route for add classification view
+router.get("/add-classification", 
+    utilities.checkEmployeeStatus,
+    utilities.handleErrors(invCont.newclassification));
+
+router.post("/add-classification",
+    invValidate.classificationRules(),
+    invValidate.checkClassificationName,
+    utilities.handleErrors(invCont.processclassification));
+
+// Route for add inventory view
+router.get("/add-inventory", 
+    utilities.checkEmployeeStatus,
+    utilities.handleErrors(invCont.addinventory));
+
+router.post("/add-inventory", 
+    utilities.handleErrors(invCont.processInventory));
 
 // Intentional Error Route
-router.get("/trigger-error", utilities.handleErrors(errormess.buildError));
+router.get("/trigger-error", 
+    utilities.handleErrors(errormess.buildError));
+
+// Process route and return data as JSON
+router.get("/getInventory/:classification_id", 
+    invValidate.inventoryRules(),
+    utilities.handleErrors(invCont.getInventoryJSON));
+
+// Route to show edit page view
+router.get("/edit/:inv_id",
+    utilities.checkEmployeeStatus,
+    utilities.handleErrors(invCont.showeditpage));
+
+router.post("/update-vehicle", 
+    invValidate.inventoryRules(),
+    invValidate.checkUpdateData,
+    utilities.handleErrors(invCont.updateInventory));
+
+//Route to show delete view
+router.get("/delete/:inv_id",
+    utilities.checkEmployeeStatus,
+    utilities.handleErrors(invCont.showdeletepage));
+
+router.post("/delete-vehicle",
+    utilities.handleErrors(invCont.processdelete));
 
 module.exports = router;

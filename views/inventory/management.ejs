@@ -1,11 +1,26 @@
-<% if (title) { %>
-    <h1><%= title %></h1>
-    <% } else {
-        res.redirect('/')
-} %>
-
-
-<div class="management-links">
-    <a href="/inv/add-classification" class="add-classification">Add New Classification</a>
-    <a href="/inv/add-inventory" class="add-inventory">Add New Inventory</a>
+<div class="managementtitle">
+    <% if (title) { %>
+        <h1>
+            <%= title %>
+        </h1>
+        <% } else { res.redirect('/') } %>
 </div>
+
+<div class="managementmess">
+    <%- messages() %>
+</div>
+
+<div class="management-options">
+    <a href="/inv/add-classification">Add New Classification</a>
+    <a href="/inv/add-inventory">Add New Inventory</a>
+</div>
+
+<h2>Manage Inventory</h2>
+<p>Choose a classification to see inventory items.</p>
+<%- classificationSelect %>
+
+<table id="inventoryDisplay"></table>
+
+<noscript>Javascript must be enabled to use this page.</noscript>
+
+<script src="/js/inventory.js"></script>

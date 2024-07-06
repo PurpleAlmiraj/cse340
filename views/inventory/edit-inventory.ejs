@@ -13,12 +13,12 @@
 </ul>
 <% } %>
 
-<form id="addinventoryform" action="/inv/add-inventory" method="post">
+<form id="updateForm" action="/inv/update-vehicle" method="post">
     <p>
         <label>Classification</label>
         <%- dropdown %>
     </p>
-    
+
     <!-- inventory make -->
     <p>
         <label>Make</label>
@@ -128,5 +128,12 @@
             value="<%= locals.inv_color %>"
         >
     </p>
-    <button type="submit">Add Inventory</button>
+    <button type="submit" disabled>Update Vehicle</button>
+
+    <input type="hidden" name="inv_id"
+    <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+    <% } %>>
+
 </form>
+
+<script src="/js/inv-update.js"></script>

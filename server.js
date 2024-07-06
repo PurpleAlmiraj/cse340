@@ -1,22 +1,27 @@
+/* ******************************************
+ * This server.js file is the primary file of the 
+ * application. It is used to control the project.
+ *******************************************/
 /* ***********************
  * Require Statements
  *************************/
-const session = require("express-session");
-const pool = require("./database/");
-const express = require("express");
-const expressLayouts = require("express-ejs-layouts");
-const env = require("dotenv").config();
-const app = express();
-const static = require("./routes/static");
-const baseController = require("./controllers/baseController");
-const inventoryRoute = require("./routes/inventoryRoute");
-const utilities = require("./utilities/");
-const accountRoute = require("./routes/accountRoute");
-const bodyParser = require("body-parser");
+const session = require("express-session")
+const pool = require("./database/")
+const express = require("express")
+const expressLayouts = require("express-ejs-layouts")
+const env = require("dotenv").config()
+const app = express()
+const static = require("./routes/static")
+const baseController = require("./controllers/baseController")
+const inventoryRoute = require("./routes/inventoryRoute")
+const utilities = require("./utilities/")
+const accountRoute = require("./routes/accountRoute")
+const bodyParser = require("body-parser")
+const cookieParser = require("cookie-parser")
 
 /* ***********************
  * Middleware
- ************************/
+ * ************************/
 app.use(session({
   store: new (require('connect-pg-simple')(session))({
     createTableIfMissing: true,
@@ -26,88 +31,81 @@ app.use(session({
   resave: true,
   saveUninitialized: true,
   name: 'sessionId',
-}));
+}))
 
 // Express Messages Middleware
-app.use(require('connect-flash')());
+app.use(require('connect-flash')())
 app.use(function(req, res, next){
-  res.locals.messages = require('express-messages')(req, res);
-  next();
-});
+  res.locals.messages = require('express-messages')(req, res)
+  next()
+})
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+app.use(cookieParser())
+app.use(utilities.checkJWTToken)
 /* ***********************
  * View Engine and Templates
  *************************/
-app.set("view engine", "ejs");
-app.use(expressLayouts);
-app.set("layout", "./layouts/layout");
+app.set("view engine", "ejs")
+app.use(expressLayouts)
+app.set("layout", "./layouts/layout")
 
 /* ***********************
  * Routes
  *************************/
-app.use(static);
+app.use(static)
+//Index route
+app.get("/", utilities.handleErrors(baseController.buildHome))
+app.use("/inv", inventoryRoute)
+app.use("/account", accountRoute)
 
-// Index route
-app.get("/", utilities.handleErrors(baseController.buildHome));
+/* ***********************
+* Express Error Handler
+* Place after all other middleware
+*************************/
+app.use(async (req, res, next) => {
+  next({status: 500, message: "This is intentional."})
+});
 
-// Inventory routes
-app.use("/inv", inventoryRoute);
+app.use(async (req, res, next) => {
+  next({ status: 404, message: "Sorry, we appear to have lost that page." });
+});
 
-// Account routes
-app.use("/account", accountRoute);
+/* ***********************
+* Express Error Handler
+* Place after all other middleware
+*************************/
+app.use(async (err, req, res, next) => {
+  let nav = await utilities.getNav()
+  console.error(`Error at: "${req.originalUrl}": ${err.message}`)
+  res.status(404).render("errors/error", {
+    title: err.status || 'Server Error',
+    message: "Sorry, we have lost the page.",
+    nav
+  })
+})
 
-// Route to handle the 500 error explicitly
-app.get("/error-500", async (req, res) => {
+app.use(async (err, req, res, next) => {
   let nav = await utilities.getNav();
+  console.error(`Error at: "${req.originalUrl}": ${err.message}`);
   res.status(500).render("errors/error", {
-    title: "Server Error",
-    message: "Internal Server Error",
+    title: "Muahahaha",
+    message: "You have encountered a 500 error!",
     nav
   });
 });
 
 /* ***********************
- * Express Error Handler
- * Place after all other middleware
- *************************/
-app.use(async (err, req, res, next) => {
-  try {
-    let nav = await utilities.getNav();
-    console.error(`Error at: ${req.method} ${req.originalUrl}`);
-    console.error(`Error message: ${err.message}`);
-    console.error(`Stack trace: ${err.stack}`);
-
-    let message;
-    if (err.status == 404) { 
-      message = err.message;
-    } else {
-      message = 'There was a crash. You should try a different route?';
-    }
-    res.status(err.status || 500).render("errors/error", {
-      title: err.status || 'Server Error',
-      message,
-      nav
-    });
-  } catch (error) {
-    console.error('Error handling error:', error);
-    res.status(500).send('Internal Server Error');
-  }
-});
-
-
-/* ***********************
  * Local Server Information
  * Values from .env (environment) file
  *************************/
-const port = process.env.PORT;
-const host = process.env.HOST;
+const port = process.env.PORT
+const host = process.env.HOST
 
 /* ***********************
  * Log statement to confirm server operation
  *************************/
 app.listen(port, () => {
-  console.log(`app listening on ${host}:${port}`);
-});
+  console.log(`app listening on ${host}:${port}`)
+})

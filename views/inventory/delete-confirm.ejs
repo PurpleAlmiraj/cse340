@@ -1,0 +1,85 @@
+<% if (title) { %>
+    <h1>
+        <%= title %>
+    </h1>
+    <% } else { res.redirect('/') } %>
+        <%- messages() %>
+  
+  <% if (errors) { %>
+  <ul class="notice">
+  <% errors.array().forEach(error => { %>
+      <li><%= error.msg %></li>
+  <%  }) %>
+  </ul>
+  <% } %>
+  
+  <p id="deleteconfirm">Confirm Deletion - The delete is permanent.</p>
+  
+  <form id="deleteForm" action="/inv/delete-vehicle" method="post">
+      <p>
+          <label>Classification</label>
+      </p>
+  
+      <!-- inventory make -->
+      <p>
+          <label>Make</label>
+          <input 
+              type="text" 
+              id="inventory_make" 
+              name="inv_make" 
+              placeholder="Enter the make"
+              required
+              readonly
+              value="<%= locals.inv_make %>"
+          >
+      </p>
+  
+      <!-- inventory model -->
+      <p>
+          <label>Model</label>
+          <input 
+              type="text" 
+              id="inventory_model" 
+              name="inv_model" 
+              placeholder="Enter the model"
+              required
+              readonly
+              value="<%= locals.inv_model %>"
+          >
+      </p>
+  
+      <!-- inventory year -->
+      <p>
+          <label>Year</label>
+          <input 
+              type="number" 
+              id="inventory_year" 
+              name="inv_year" 
+              placeholder="Enter the year"
+              required
+              readonly
+              value="<%= locals.inv_year %>"
+          >
+      </p>
+      
+      <!-- inventory price -->
+      <p>
+          <label>Price</label>
+          <input 
+              type="number" 
+              id="inventory_price" 
+              name="inv_price" 
+              placeholder="Enter the price"
+              required
+              readonly
+              value="<%= locals.inv_price %>"
+          >
+      </p>
+      
+      <button type="submit">Delete Vehicle</button>
+  
+      <input type="hidden" name="inv_id"
+      <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+      <% } %>>
+  
+  </form>
