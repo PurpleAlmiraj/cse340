@@ -4,47 +4,48 @@ const utilities = require("../utilities/index");
 const accountController = require("../controllers/accountController");
 const regValidate = require('../utilities/account-validation')
 
-// Route to build account view
+
+//Route to build account view
 router.get("/", 
     utilities.checkLogin, 
-    utilities.handleErrors(accountController.getAccountManagementView));
+    utilities.handleErrors(accountController.getAccountManagementView))
 
 // Route to build inventory by classification view
 router.get("/login", 
     utilities.handleErrors(accountController.buildLogin));
 
-// Route to build registration view
+//Route to build registration view
 router.get("/register", 
-    utilities.handleErrors(accountController.buildRegister));
+    utilities.handleErrors(accountController.buildRegister))
 
-// Process registration data
+//Process registration data
 router.post("/register", 
     regValidate.registrationRules(),
     regValidate.checkRegData,
-    utilities.handleErrors(accountController.registerAccount));
+    utilities.handleErrors(accountController.registerAccount))
 
 // Process the login attempt
 router.post("/login",
     regValidate.loginRules(),
     regValidate.checkLoginData,
-    utilities.handleErrors(accountController.accountLogin));
+    utilities.handleErrors(accountController.accountLogin))
 
-// Process logout attempt
+//Process logout attempt
 router.get("/logout",
-    utilities.handleErrors(accountController.accountLogout));
+    utilities.handleErrors(accountController.accountLogout))
 
 // Process account edit view
 router.get("/edit-account/:account_id", 
-    utilities.handleErrors(accountController.editAccount));
+    utilities.handleErrors(accountController.editLoginInfo))
 
-// Process account update information
+// Process account edit account data
 router.post("/edit-information", 
-    regValidate.registrationRules(), // Assuming this handles email validation
-    utilities.handleErrors(accountController.updateAccount));
+  regValidate.registrationRules(),
+  utilities.handleErrors(accountController.editinformation))
 
-// Process account password change
+// Process account edit password
 router.post("/edit-password",
-    regValidate.loginRules(), // Assuming this handles password validation
-    utilities.handleErrors(accountController.changePassword));
+  regValidate.loginRules(),
+  utilities.handleErrors(accountController.editPassword))
 
 module.exports = router;

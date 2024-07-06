@@ -1,8 +1,8 @@
 const express = require("express");
-const router = new express.Router();
+const router = express.Router();
 const utilities = require("../utilities/index");
 const { invCont, errormess } = require("../controllers/invController");
-const invValidate = require("../utilities/classification-validation")
+const invValidate = require("../utilities/classification-validation");
 
 // Route to build inventory by classification view
 router.get("/type/:classificationId", 
@@ -20,17 +20,17 @@ router.get("/",
 // Route for add classification view
 router.get("/add-classification", 
     utilities.checkEmployeeStatus,
-    utilities.handleErrors(invCont.newclassification));
+    utilities.handleErrors(invCont.newClassification));
 
 router.post("/add-classification",
     invValidate.classificationRules(),
     invValidate.checkClassificationName,
-    utilities.handleErrors(invCont.processclassification));
+    utilities.handleErrors(invCont.processClassification));
 
 // Route for add inventory view
 router.get("/add-inventory", 
     utilities.checkEmployeeStatus,
-    utilities.handleErrors(invCont.addinventory));
+    utilities.handleErrors(invCont.addInventory));
 
 router.post("/add-inventory", 
     utilities.handleErrors(invCont.processInventory));
@@ -47,7 +47,7 @@ router.get("/getInventory/:classification_id",
 // Route to show edit page view
 router.get("/edit/:inv_id",
     utilities.checkEmployeeStatus,
-    utilities.handleErrors(invCont.showeditpage));
+    utilities.handleErrors(invCont.showEditPage));
 
 router.post("/update-vehicle", 
     invValidate.inventoryRules(),
@@ -57,9 +57,9 @@ router.post("/update-vehicle",
 //Route to show delete view
 router.get("/delete/:inv_id",
     utilities.checkEmployeeStatus,
-    utilities.handleErrors(invCont.showdeletepage));
+    utilities.handleErrors(invCont.showDeletePage));
 
 router.post("/delete-vehicle",
-    utilities.handleErrors(invCont.processdelete));
+    utilities.handleErrors(invCont.processDelete));
 
 module.exports = router;
