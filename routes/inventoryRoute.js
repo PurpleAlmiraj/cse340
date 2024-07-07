@@ -62,4 +62,7 @@ router.get("/delete/:inv_id",
 router.post("/delete-vehicle",
     utilities.handleErrors(invCont.processDelete));
 
+
+    
+
 module.exports = router;

@@ -502,3 +502,183 @@ button[type="submit"]:hover {
   }
   
 }
+
+/* Base styles */
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3 {
+    font-weight: bold;
+    margin: 0 0 10px 0;
+}
+
+/* Management View Styles */
+.management-container {
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 5px;
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+#loginmessage {
+    color: #28a745;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.notice {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.notice li {
+    color: red;
+    font-size: 0.9em;
+}
+
+#welcome-login {
+    background-color: #007bff;
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#welcome-login h2 {
+    margin: 0 0 10px 0;
+}
+
+#welcome-login a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#welcome-login a:hover {
+    text-decoration: underline;
+}
+
+#loginmanagement {
+    background-color: #ffc107;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+#loginmanagement h3 {
+    margin: 0 0 10px 0;
+}
+
+#loginmanagement a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+#loginmanagement a:hover {
+    background-color: #0056b3;
+}
+
+/* Flash Messages */
+.flash-messages {
+    margin-bottom: 20px;
+}
+
+.flash-message {
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.flash-message.error {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.flash-message.success {
+    background-color: #28a745;
+    color: #fff;
+}
+#loginwelcome {
+  font-size: 2.5em;
+}
+
+@media only screen and (max-width: 750px) {
+    .management-container {
+        padding: 10px;
+        margin: 10px;
+    }
+
+    #welcome-login, #loginmanagement {
+        padding: 15px;
+    }
+
+    #loginmanagement a {
+        padding: 8px 15px;
+    }
+}
+
+.account-form,
+.password-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.account-form h2,
+.password-form h2 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.submit-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.password-button {
+    cursor: pointer;
+    color: blue;
+}

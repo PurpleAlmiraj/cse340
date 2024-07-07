@@ -1,141 +1,140 @@
 <% if (title) { %>
-  <h1>
-      <%= title %>
-  </h1>
-  <% } else { res.redirect('/') } %>
-      <%- messages() %>
-
-<% if (errors) { %>
-<ul class="notice">
-<% errors.array().forEach(error => { %>
-    <li><%= error.msg %></li>
-<%  }) %>
-</ul>
-<% } %>
-
-<form id="updateForm" action="/inv/update-vehicle" method="post">
-    <p>
-        <label>Classification</label>
-        <%- dropdown %>
-    </p>
-
-    <!-- inventory make -->
-    <p>
-        <label>Make</label>
-        <input 
-            type="text" 
-            id="inventory_make" 
-            name="inv_make" 
-            placeholder="Enter the make"
-            required
-            value="<%= locals.inv_make %>"
-        >
-    </p>
-
-    <!-- inventory model -->
-    <p>
-        <label>Model</label>
-        <input 
-            type="text" 
-            id="inventory_model" 
-            name="inv_model" 
-            placeholder="Enter the model"
-            required
-            value="<%= locals.inv_model %>"
-        >
-    </p>
-
-    <!-- inventory year -->
-    <p>
-        <label>Year</label>
-        <input 
-            type="number" 
-            id="inventory_year" 
-            name="inv_year" 
-            placeholder="Enter the year"
-            required
-            value="<%= locals.inv_year %>"
-        >
-    </p>
-
-    <!-- inventory description -->
-    <p>
-        <label>Description</label>
-        <textarea id="inventory_description" name="inv_description" placeholder="Enter the description" required><%= locals.inv_description %></textarea>
-    </p>
-
-    <!-- inventory image -->
-    <p>
-        <label>Image</label>
-        <input 
-            type="text" 
-            id="inventory_image" 
-            name="inv_image" 
-            placeholder="Enter the image"
-            required
-            value="<%= locals.inv_image %>"
-        >
-    </p>
-
-    <!-- inventory thumbnail -->
-    <p>
-        <label>Thumbnail</label>
-        <input 
-            type="text" 
-            id="inventory_thumbnail" 
-            name="inv_thumbnail" 
-            placeholder="Enter the thumbnail"
-            required
-            value="<%= locals.inv_thumbnail %>"
-        >
-    </p>
-
-    <!-- inventory price -->
-    <p>
-        <label>Price</label>
-        <input 
-            type="number" 
-            id="inventory_price" 
-            name="inv_price" 
-            placeholder="Enter the price"
-            required
-            value="<%= locals.inv_price %>"
-        >
-    </p>
-
-    <!-- inventory miles -->
-    <p>
-        <label>Miles</label>
-        <input 
-            type="number" 
-            id="inventory_miles" 
-            name="inv_miles" 
-            placeholder="Enter the miles"
-            required
-            value="<%= locals.inv_miles %>"
-        >
-    </p>
-
-    <!-- inventory color -->
-    <p>
-        <label>Color</label>
-        <input 
-            type="text" 
-            id="inventory_color" 
-            name="inv_color" 
-            placeholder="Enter the color"
-            required
-            value="<%= locals.inv_color %>"
-        >
-    </p>
-    <button type="submit" disabled>Update Vehicle</button>
-
-    <input type="hidden" name="inv_id"
-    <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
-    <% } %>>
-
-</form>
-
+    <h1>
+        <%= title %>
+    </h1>
+    <% } else { res.redirect('/') } %>
+        <%- messages() %>
+  
+  <% if (errors) { %>
+  <ul class="notice">
+  <% errors.array().forEach(error => { %>
+      <li><%= error.msg %></li>
+  <%  }) %>
+  </ul>
+  <% } %>
+  
+  <form id="updateForm1" action="/inv/update-vehicle" method="post">
+      <p>
+          <label>Classification</label>
+          <%- dropdown %>
+      </p>
+  
+      <!-- inventory make -->
+      <p>
+          <label>Make</label>
+          <input 
+              type="text" 
+              id="inventory_make" 
+              name="inv_make" 
+              placeholder="Enter the make"
+              required
+              value="<%= locals.inv_make %>"
+          >
+      </p>
+  
+      <!-- inventory model -->
+      <p>
+          <label>Model</label>
+          <input 
+              type="text" 
+              id="inventory_model" 
+              name="inv_model" 
+              placeholder="Enter the model"
+              required
+              value="<%= locals.inv_model %>"
+          >
+      </p>
+  
+      <!-- inventory year -->
+      <p>
+          <label>Year</label>
+          <input 
+              type="number" 
+              id="inventory_year" 
+              name="inv_year" 
+              placeholder="Enter the year"
+              required
+              value="<%= locals.inv_year %>"
+          >
+      </p>
+  
+      <!-- inventory description -->
+      <p>
+          <label>Description</label>
+          <textarea id="inventory_description" name="inv_description" placeholder="Enter the description" required><%= locals.inv_description %></textarea>
+      </p>
+  
+      <!-- inventory image -->
+      <p>
+          <label>Image</label>
+          <input 
+              type="text" 
+              id="inventory_image" 
+              name="inv_image" 
+              placeholder="Enter the image"
+              required
+              value="<%= locals.inv_image %>"
+          >
+      </p>
+  
+      <!-- inventory thumbnail -->
+      <p>
+          <label>Thumbnail</label>
+          <input 
+              type="text" 
+              id="inventory_thumbnail" 
+              name="inv_thumbnail" 
+              placeholder="Enter the thumbnail"
+              required
+              value="<%= locals.inv_thumbnail %>"
+          >
+      </p>
+  
+      <!-- inventory price -->
+      <p>
+          <label>Price</label>
+          <input 
+              type="number" 
+              id="inventory_price" 
+              name="inv_price" 
+              placeholder="Enter the price"
+              required
+              value="<%= locals.inv_price %>"
+          >
+      </p>
+  
+      <!-- inventory miles -->
+      <p>
+          <label>Miles</label>
+          <input 
+              type="number" 
+              id="inventory_miles" 
+              name="inv_miles" 
+              placeholder="Enter the miles"
+              required
+              value="<%= locals.inv_miles %>"
+          >
+      </p>
+  
+      <!-- inventory color -->
+      <p>
+          <label>Color</label>
+          <input 
+              type="text" 
+              id="inventory_color" 
+              name="inv_color" 
+              placeholder="Enter the color"
+              required
+              value="<%= locals.inv_color %>"
+          >
+      </p>
+      <button id="button1" type="submit" disabled>Update Vehicle</button>
+  
+      <input type="hidden" name="inv_id"
+      <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+      <% } %>>
+  
+  </form>
 <script src="/js/inv-update.js"></script>
 
 <script src="/public/js/script.js" defer></script>
