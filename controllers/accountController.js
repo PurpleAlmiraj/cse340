@@ -51,13 +51,12 @@ async function registerAccount(req, res) {
   let nav = await utilities.getNav()
   const { account_firstname, account_lastname, account_email, account_password } = req.body
 
-  // Hash the password before storing
+
   let hashedPassword
   try {
-    // regular password and cost (salt is generated automatically)
     hashedPassword = await bcrypt.hashSync(account_password, 10)
   } catch (error) {
-    req.flash("notice", 'Sorry, there was an error processing the registration.')
+    req.flash("notice", 'There was an error processing the registration.')
     res.status(500).render("account/register", {
       title: "Registration",
       nav,
@@ -83,7 +82,7 @@ async function registerAccount(req, res) {
       errors: null,
     })
   } else {
-    req.flash("notice", "Sorry, the registration failed.")
+    req.flash("notice", "The registration failed.")
     res.status(501).render("account/register", {
       title: "Registration",
       nav,
@@ -131,6 +130,7 @@ async function accountLogin(req, res) {
  async function accountLogout(req, res) {
   res.clearCookie("jwt")
   res.redirect("/")
+
  }
 
  /* ****************************************
@@ -162,7 +162,7 @@ async function editinformation(req, res) {
   if (updateInformation) {
     req.flash(
       "notice",
-      `Congratulations, ${account_firstname}. You have updated your account.`
+      "${account_firstname}. You have updated your account."
     )
     res.clearCookie("jwt")
     const updatedInformation = await accountModel.getAccountById(account_id);
@@ -183,7 +183,7 @@ async function editinformation(req, res) {
     }
     res.status(201).redirect("/account/");
 } else {
-    req.flash("notice", "Sorry, the account update failed.");
+    req.flash("notice", "The account update failed.");
     res.status(501).render("account/edit-account", {
       title: "Edit Account",
       nav,
@@ -208,14 +208,14 @@ async function editinformation(req, res) {
   const updateResult = await accountModel.updatePassword(account_id, hashedPassword);
 
   if (updateResult) {
-    req.flash("notice", "Congratulations, your password has been updated.");
+    req.flash("Congratulations, your password has been updated.");
     res.status(201).render("account/management", {
       title: "Account Management",
       nav,
       errors: null,
     });
   } else {
-    req.flash("notice", "Sorry, the password update failed.");
+    req.flash("Sorry, the password update failed.");
     res.status(501).render("account/edit-account", {
       title: "Edit Account",
       nav,
@@ -227,4 +227,6 @@ async function editinformation(req, res) {
   }
 };
 
-  module.exports = { buildLogin, buildRegister, registerAccount, getAccountManagementView, accountLogin, accountLogout, editLoginInfo, editinformation, editPassword }
+  module.exports = { buildLogin, buildRegister, 
+    registerAccount, getAccountManagementView, accountLogin, 
+    accountLogout, editLoginInfo, editinformation, editPassword }

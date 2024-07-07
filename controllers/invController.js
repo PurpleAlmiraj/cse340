@@ -242,7 +242,7 @@ invCont.updateInventory = async function (req, res, next) {
   } else {
     const dropdown = await utilities.buildClassificationList(classification_id);
     const itemName = `${inv_make} ${inv_model}`;
-    req.flash("notice", "Sorry, the update failed.");
+    req.flash("notice", "The update failed.");
     res.status(501).render("./inventory/edit-inventory", {
       title: `Edit ${itemName}`,
       nav,
@@ -306,7 +306,7 @@ invCont.processDelete = async function (req, res, next) {
     );
     res.redirect("/inv/");
   } else {
-    req.flash("alert error", "Sorry, the vehicle was not deleted.");
+    req.flash("alert error", "The vehicle was not deleted.");
     res.redirect("/inv/delete/" + inv_id);
   }
 };
