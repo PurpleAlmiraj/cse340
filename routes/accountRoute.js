@@ -39,13 +39,13 @@ router.get("/edit-account/:account_id",
 
 // Process account edit account data
 router.post("/edit-information", 
-  regValidate.registrationRules(),
-  utilities.handleErrors(accountController.editinformation));
+    regValidate.registrationRules(),
+    utilities.handleErrors(accountController.editInformation)); // Corrected function name
 
 // Process account edit password
 router.post("/edit-password",
-  regValidate.passwordRules(),
-  utilities.handleErrors(accountController.editPassword));
+    regValidate.passwordRules(),
+    utilities.handleErrors(accountController.editPassword));
 
 // Build review edit view
 router.get("/edit-review/:review_id", 
@@ -53,8 +53,8 @@ router.get("/edit-review/:review_id",
 
 // Process review edit
 router.post("/edit-review",
-  regValidate.reviewRules(),
-  utilities.handleErrors(accountController.editReview));
+    regValidate.reviewRules(),
+    utilities.handleErrors(accountController.editReview));
 
 // Build review delete view
 router.get("/delete-review/:review_id", 
@@ -64,21 +64,13 @@ router.get("/delete-review/:review_id",
 router.post("/delete-review", 
     utilities.handleErrors(accountController.deleteReview));
 
-// Build review creation view
 router.get("/create-review/:inv_id", 
     utilities.handleErrors(accountController.buildCreateReview));
+    
 
 // Process review creation
 router.post("/create-review", 
     regValidate.reviewRules(),
-    utilities.handleErrors(accountController.createReview));
-
-// Build review creation view
-router.get("/create-review", 
-    utilities.handleErrors(accountController.buildCreateReview));
-
-// Process review creation
-router.post("/create-review", 
     utilities.handleErrors(accountController.createReview));
 
 module.exports = router;

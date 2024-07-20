@@ -91,7 +91,8 @@ Util.buildItemGrid = async function(data, reviews = []) {
           <p>${data.inv_year}</p>
         </div>
         <div class="review-button">
-          <a href="/account/create-review?inv_id=<%= data.inv_id %>" class="btn-review">Write a Review</a>
+         <a href="/account/create-review/<%= data.inv_id %>">Create Review</a>
+
         </div>
       </div>
     `;
