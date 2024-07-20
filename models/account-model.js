@@ -48,7 +48,6 @@ async function getAccountById(account_id) {
       "SELECT account_id, account_firstname, account_lastname, account_email, account_type FROM account WHERE account_id = $1",
       [account_id]
     );
-    // console.log(result.rows[0])
     return result.rows[0];
   } catch (error) {
     return new Error("No matching account found");
@@ -58,26 +57,16 @@ async function getAccountById(account_id) {
 /* *****************************
 * Update account information
 * ***************************** */
-async function updateInformation (
-account_firstname,
-account_lastname,
-account_email,
-account_id,
-) {
-try {
-  const sql =
-    "UPDATE account SET account_firstname = $1, account_lastname = $2, account_email = $3 WHERE account_id = $4 RETURNING *";
-  const result = await pool.query(sql, [
-    account_firstname,
-    account_lastname,
-    account_email,
-    account_id,
-  ]);
-  return result.rows[0];
-} catch (error) {
-  console.log("Account wasn't updated.")
-  return error.message;
-}
+async function updateInformation (account_firstname, account_lastname, account_email, account_id) {
+  try {
+    const sql =
+      "UPDATE public.account SET account_firstname = $1, account_lastname = $2, account_email = $3 WHERE account_id = $4 RETURNING *";
+    const result = await pool.query(sql, [account_firstname, account_lastname, account_email, account_id,]);
+    return result.rows[0];
+  } catch (error) {
+    console.log("Account wasn't updated.")
+    return error.message;
+  }
 }
 
 /* *****************************
@@ -94,4 +83,62 @@ async function updatePassword(account_id, account_password) {
   }
 }
 
-module.exports = { registerAccount, checkExistingEmail, getAccountByEmail, getAccountById, updateInformation, updatePassword }
+/* *****************************
+ * Get reviews by account_id
+ * *************************** */
+async function getReviewsByAccountId(account_id) {
+  try {
+    const sql = `SELECT review.review_text, review.review_date, review.account_id, review.review_id, inventory.inv_make, inventory.inv_model, inventory.inv_year
+      FROM review JOIN inventory ON review.inv_id = inventory.inv_id WHERE review.account_id = $1`;
+    return await pool.query(sql, [account_id]);
+  } catch (error) {
+    return error.message;
+  }
+}
+
+/* *****************************
+ * Get reviews by review_id
+ * *************************** */
+async function getReviewById(review_id) {
+  try {
+    const sql = "SELECT * FROM review WHERE review_id = $1";
+    return await pool.query(sql, [review_id]);
+  } catch (error) {
+    return error.message;
+  }
+}
+
+async function updateReview(review_id, review_text) {
+  try {
+    const sql = "UPDATE review SET review_text = $1 WHERE review_id = $2 RETURNING *";
+    return await pool.query(sql, [review_text, review_id]);
+  } catch (error) {
+    return error.message;
+  }
+}
+
+async function deleteReview(review_id) {
+  try {
+    const sql = "DELETE FROM review WHERE review_id = $1"
+    return await pool.query(sql, [review_id])
+  } catch (error) {
+    return error.message;
+  }
+}
+
+/* ****************************************
+ *  Create a new review
+ * *************************************** */
+async function createReview(review_date, review_text, inv_id, account_id) {
+  try {
+      const sql = `INSERT INTO reviews (review_date, review_text, inv_id, account_id)
+                   VALUES ($1, $2, $3, $4)`;
+      return await pool.query(sql, [review_date, review_text, inv_id, account_id]);
+  } catch (error) {
+      return error.message;
+  }
+}
+
+
+
+module.exports = { registerAccount, checkExistingEmail, getAccountByEmail, getAccountById, updateInformation, updatePassword, getReviewsByAccountId, getReviewById, updateReview, deleteReview, createReview }

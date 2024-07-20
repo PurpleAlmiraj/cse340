@@ -1,0 +1,35 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+    } %>
+
+<%- messages() %> <!-- Flash messages -->
+
+<% if (errors) { %>
+    <ul class="notice">
+   <% errors.array().forEach(error => { %>
+     <li><%= error.msg %></li>
+  <%  }) %>
+   </ul>
+  <% } %>
+
+  <form action="/account/edit-review" method="post" class="edit-review-form" id="editreviewform">
+    <div class="form-group">
+      <label for="review_date" class="form-label">Review Date:</label>
+      <input type="text" name="review_date" id="review_date" class="form-control" value="<%= formattedDate %>" readonly>
+    </div>
+  
+    <div class="form-group">
+      <label for="review_text" class="form-label">Review Text:</label>
+      <textarea name="review_text" id="review_text" class="form-control" cols="30" rows="10" required><%= review.review_text %></textarea>
+    </div>
+  
+    <input type="hidden" name="review_id" value="<%= review.review_id %>">
+    <input type="hidden" name="account_id" value="<%= review.account_id %>">
+    <input type="hidden" name="inv_id" value="<%= review.inv_id %>">
+    
+    <div class="form-actions">
+      <button type="submit" class="form-button">Update Review</button>
+    </div>
+  </form>

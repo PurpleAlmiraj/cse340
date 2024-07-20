@@ -2,50 +2,83 @@ const express = require("express");
 const router = new express.Router();
 const utilities = require("../utilities/index");
 const accountController = require("../controllers/accountController");
-const regValidate = require('../utilities/account-validation')
+const regValidate = require('../utilities/account-validation');
 
-
-//Route to build account view
+// Route to build account view
 router.get("/", 
     utilities.checkLogin, 
-    utilities.handleErrors(accountController.getAccountManagementView))
+    utilities.handleErrors(accountController.getAccountManagementView));
 
-// Route to build inventory by classification view
+// Route to build login view
 router.get("/login", 
     utilities.handleErrors(accountController.buildLogin));
 
-//Route to build registration view
+// Route to build registration view
 router.get("/register", 
-    utilities.handleErrors(accountController.buildRegister))
+    utilities.handleErrors(accountController.buildRegister));
 
-//Process registration data
+// Process registration data
 router.post("/register", 
     regValidate.registrationRules(),
     regValidate.checkRegData,
-    utilities.handleErrors(accountController.registerAccount))
+    utilities.handleErrors(accountController.registerAccount));
 
 // Process the login attempt
 router.post("/login",
     regValidate.loginRules(),
     regValidate.checkLoginData,
-    utilities.handleErrors(accountController.accountLogin))
+    utilities.handleErrors(accountController.accountLogin));
 
-//Process logout attempt
+// Process logout attempt
 router.get("/logout",
-    utilities.handleErrors(accountController.accountLogout))
+    utilities.handleErrors(accountController.accountLogout));
 
 // Process account edit view
 router.get("/edit-account/:account_id", 
-    utilities.handleErrors(accountController.editLoginInfo))
+    utilities.handleErrors(accountController.editLoginInfo));
 
 // Process account edit account data
 router.post("/edit-information", 
   regValidate.registrationRules(),
-  utilities.handleErrors(accountController.editinformation))
+  utilities.handleErrors(accountController.editinformation));
 
 // Process account edit password
 router.post("/edit-password",
-  regValidate.loginRules(),
-  utilities.handleErrors(accountController.editPassword))
+  regValidate.passwordRules(),
+  utilities.handleErrors(accountController.editPassword));
+
+// Build review edit view
+router.get("/edit-review/:review_id", 
+    utilities.handleErrors(accountController.buildEditReview));
+
+// Process review edit
+router.post("/edit-review",
+  regValidate.reviewRules(),
+  utilities.handleErrors(accountController.editReview));
+
+// Build review delete view
+router.get("/delete-review/:review_id", 
+    utilities.handleErrors(accountController.buildDeleteReview));
+
+// Process review delete
+router.post("/delete-review", 
+    utilities.handleErrors(accountController.deleteReview));
+
+// Build review creation view
+router.get("/create-review/:inv_id", 
+    utilities.handleErrors(accountController.buildCreateReview));
+
+// Process review creation
+router.post("/create-review", 
+    regValidate.reviewRules(),
+    utilities.handleErrors(accountController.createReview));
+
+// Build review creation view
+router.get("/create-review", 
+    utilities.handleErrors(accountController.buildCreateReview));
+
+// Process review creation
+router.post("/create-review", 
+    utilities.handleErrors(accountController.createReview));
 
 module.exports = router;

@@ -67,6 +67,8 @@ Util.buildClassificationGrid = async function(data) {
         grid += '<p><strong>Mileage:</strong> ' 
           + new Intl.NumberFormat('en-US').format(vehicle.inv_miles) + ' miles</p>';
         grid += '<p><strong>Description:</strong> ' + vehicle.inv_description + '</p>';
+        grid += '<div id="vehicle-year"><h3>Year: </h3><p>' + vehicle.inv_year + '</p></div>';
+        grid += '</div>';
         grid += '</li>';
       });
       grid += '</ul>';
@@ -99,6 +101,7 @@ Util.buildItemGrid = async function(data) {
       grid += '<div id="vehicle-color"><h3>Color: </h3><p>' + data.inv_color + '</p></div>';
       grid += '<div id="vehicle-miles"><h3>Miles: </h3><p>' 
         + new Intl.NumberFormat('en-US').format(data.inv_miles) + '</p></div>';
+      grid += '<div id="vehicle-year"><h3>Year: </h3><p>' + data.inv_year + '</p></div>';
       grid += '</div>';
     } else {
       grid = '<p class="notice">Sorry, no matching vehicle could be found.</p>';
@@ -109,6 +112,7 @@ Util.buildItemGrid = async function(data) {
     throw error;
   }
 };
+
 
 /* **************************************
  * Build the classification list HTML

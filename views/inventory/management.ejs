@@ -15,16 +15,14 @@
     <a href="/inv/add-inventory">Add New Inventory</a>
 </div>
 
-<h2>Manage Inventory</h2>
-<p>Choose a classification to see inventory items.</p>
-<%- classificationSelect %>
+<div id="manageinventory">
+    <h2>Manage Inventory</h2>
+    <p>Choose a classification to see inventory items.</p>
+    <%- classificationSelect %>
+</div>
 
 <table id="inventoryDisplay"></table>
 
 <noscript>Javascript must be enabled to use this page.</noscript>
 
 <script src="/js/inventory.js"></script>
-<script src="/public/js/script.js" defer></script>
-<script src="/public/js/form-validation.js"></script>
-<script src="/public/js/inventory-validation.js"></script>
-<script src="/public/js/inv-update.js"></script>

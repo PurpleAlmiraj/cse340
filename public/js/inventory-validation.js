@@ -9,6 +9,6 @@ function validateInventoryForm() {
         return false;
     }
     
-    // Add more validation as needed
+
     return true;
 }

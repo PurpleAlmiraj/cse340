@@ -1,15 +1,21 @@
 document.addEventListener("DOMContentLoaded", function() {
-    document.addEventListener("click", function(event) {
-        if (event.target && event.target.id === "passwordbtn") {
-            const passwordinput = document.getElementById("account_password");
+    // Get the password button and input
+    const passwordbtn = document.querySelector("#passwordbtn");
+    const passwordinput = document.getElementById("account_password");
+
+    // Check if elements exist before adding event listeners
+    if (passwordbtn && passwordinput) {
+        passwordbtn.addEventListener("click", function() {
             const type = passwordinput.getAttribute("type");
-            if (type == "password") {
+            if (type === "password") {
                 passwordinput.setAttribute("type", "text");
-                event.target.textContent = "Hide Password";
+                passwordbtn.innerHTML = "Hide Password";
             } else {
                 passwordinput.setAttribute("type", "password");
-                event.target.textContent = "Show Password";
+                passwordbtn.innerHTML = "Show Password";
             }
-        }
-    });
+        });
+    } else {
+        console.error("Password button or input not found");
+    }
 });

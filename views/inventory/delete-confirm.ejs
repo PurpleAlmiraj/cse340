@@ -16,70 +16,40 @@
   <p id="deleteconfirm">Confirm Deletion - The delete is permanent.</p>
   
   <form id="deleteForm" action="/inv/delete-vehicle" method="post">
-      <p>
-          <label>Classification</label>
-      </p>
   
-      <!-- inventory make -->
-      <p>
-          <label>Make</label>
-          <input 
-              type="text" 
-              id="inventory_make" 
-              name="inv_make" 
-              placeholder="Enter the make"
-              required
-              readonly
-              value="<%= locals.inv_make %>"
-          >
-      </p>
+      <div>
+          <label for="inventory_make">Make</label>
+      </div>
+      <div id="delete1">
+          <input type="text" id="inventory_make" name="inv_make" placeholder="Enter the make" required readonly value="<%= locals.inv_make %>">
+      </div>
   
-      <!-- inventory model -->
-      <p>
-          <label>Model</label>
-          <input 
-              type="text" 
-              id="inventory_model" 
-              name="inv_model" 
-              placeholder="Enter the model"
-              required
-              readonly
-              value="<%= locals.inv_model %>"
-          >
-      </p>
+      <div>
+          <label for="inventory_model">Model</label>
+      </div>
+      <div id="delete2">
+          <input type="text" id="inventory_model" name="inv_model" placeholder="Enter the model" required readonly value="<%= locals.inv_model %>">
+      </div>
   
-      <!-- inventory year -->
-      <p>
-          <label>Year</label>
-          <input 
-              type="number" 
-              id="inventory_year" 
-              name="inv_year" 
-              placeholder="Enter the year"
-              required
-              readonly
-              value="<%= locals.inv_year %>"
-          >
-      </p>
+      <div>
+          <label for="inventory_year">Year</label>
+      </div>
+      <div id="delete3">
+          <input type="number" id="inventory_year" name="inv_year" placeholder="Enter the year" required readonly value="<%= locals.inv_year %>">
+      </div>
       
-      <!-- inventory price -->
-      <p>
-          <label>Price</label>
-          <input 
-              type="number" 
-              id="inventory_price" 
-              name="inv_price" 
-              placeholder="Enter the price"
-              required
-              readonly
-              value="<%= locals.inv_price %>"
-          >
-      </p>
+      <div>
+          <label for="inventory_price">Price</label>
+      </div>
+      <div>
+          <input type="number" id="inventory_price" name="inv_price" placeholder="Enter the price" required readonly value="<%= locals.inv_price %>">
+      </div>
       
-      <button type="submit">Delete Vehicle</button>
-  
-      <input type="hidden" name="inv_id"
-      <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
-      <% } %>>
+      <div id="deletesubmitbttn">
+          <button type="submit">Delete Vehicle</button>
+          <input type="hidden" name="inv_id"
+          <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+          <% } %>>
+      </div>
   
   </form>

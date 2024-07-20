@@ -1,8 +1,8 @@
 const express = require("express");
-const router = express.Router();
+const router = new express.Router();
 const utilities = require("../utilities/index");
 const { invCont, errormess } = require("../controllers/invController");
-const invValidate = require("../utilities/classification-validation");
+const invValidate = require("../utilities/classification-validation")
 
 // Route to build inventory by classification view
 router.get("/type/:classificationId", 
@@ -20,17 +20,17 @@ router.get("/",
 // Route for add classification view
 router.get("/add-classification", 
     utilities.checkEmployeeStatus,
-    utilities.handleErrors(invCont.newClassification));
+    utilities.handleErrors(invCont.newclassification));
 
 router.post("/add-classification",
     invValidate.classificationRules(),
     invValidate.checkClassificationName,
-    utilities.handleErrors(invCont.processClassification));
+    utilities.handleErrors(invCont.processclassification));
 
 // Route for add inventory view
 router.get("/add-inventory", 
     utilities.checkEmployeeStatus,
-    utilities.handleErrors(invCont.addInventory));
+    utilities.handleErrors(invCont.addinventory));
 
 router.post("/add-inventory", 
     utilities.handleErrors(invCont.processInventory));
@@ -47,7 +47,7 @@ router.get("/getInventory/:classification_id",
 // Route to show edit page view
 router.get("/edit/:inv_id",
     utilities.checkEmployeeStatus,
-    utilities.handleErrors(invCont.showEditPage));
+    utilities.handleErrors(invCont.showeditpage));
 
 router.post("/update-vehicle", 
     invValidate.inventoryRules(),
@@ -57,12 +57,13 @@ router.post("/update-vehicle",
 //Route to show delete view
 router.get("/delete/:inv_id",
     utilities.checkEmployeeStatus,
-    utilities.handleErrors(invCont.showDeletePage));
+    utilities.handleErrors(invCont.showdeletepage));
 
 router.post("/delete-vehicle",
-    utilities.handleErrors(invCont.processDelete));
+    utilities.handleErrors(invCont.processdelete));
 
-
-    
+// Route for adding a review
+router.post("/review/:inventoryId", 
+    utilities.handleErrors(invCont.addReview));
 
 module.exports = router;

@@ -1,4 +1,5 @@
 const invModel = require("../models/inventory-model")
+const accountModel = require("../models/account-model")
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
 const Util = {}
@@ -8,7 +9,6 @@ const Util = {}
  ************************** */
 Util.getNav = async function (req, res, next) {
   let data = await invModel.getClassifications()
-  console.log("Classifications Data:", data);
   let list = "<ul>"
   list += '<li><a href="/" title="Home page">Home</a></li>'
   data.rows.forEach((row) => {
@@ -31,57 +31,89 @@ Util.getNav = async function (req, res, next) {
 * Build the classification view HTML
 * ************************************ */
 Util.buildClassificationGrid = async function(data){
-  console.log("Data received in buildClassificationGrid:", data); // Add this line
-  let grid = '';
-  if(data.length > 0){
-    grid = '<ul id="inv-display">';
-    data.forEach(vehicle => { 
-      grid += '<li>';
-      grid +=  '<a href="../../inv/detail/'+ vehicle.inv_id 
-              + '" title="View ' + vehicle.inv_make + ' '+ vehicle.inv_model 
-              + ' details"><img src="' + vehicle.inv_thumbnail 
-              +'" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model 
-              +' on CSE Motors" /></a>';
-      grid += '<div class="namePrice">';
-      grid += '<hr />';
-      grid += '<h2>';
-      grid += '<a href="../../inv/detail/' + vehicle.inv_id +'" title="View ' 
-              + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">' 
-              + vehicle.inv_make + ' ' + vehicle.inv_model + '</a>';
-      grid += '</h2>';
-      grid += '<span>$' 
-              + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</span>';
-      grid += '</div>';
-      grid += '</li>';
-    });
-    grid += '</ul>';
-  } else { 
-    grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>';
-  }
-  return grid;
+    let grid
+    if(data.length > 0){
+      grid = '<ul id="inv-display">'
+      data.forEach(vehicle => { 
+        grid += '<li>'
+        grid +=  '<a href="../../inv/detail/'+ vehicle.inv_id 
+        + '" title="View ' + vehicle.inv_make + ' '+ vehicle.inv_model 
+        + 'details"><img src="' + vehicle.inv_thumbnail 
+        +'" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model 
+        +' on CSE Motors"></a>'
+        grid += '<div class="namePrice">'
+        grid += '<hr>'
+        grid += '<h2>'
+        grid += '<a href="../../inv/detail/' + vehicle.inv_id +'" title="View ' 
+        + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">' 
+        + vehicle.inv_make + ' ' + vehicle.inv_model + '</a>'
+        grid += '</h2>'
+        grid += '<span>$' 
+        + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</span>'
+        grid += '</div>'
+        grid += '</li>'
+      })
+      grid += '</ul>'
+    } else { 
+      grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
+    }
+    return grid
 }
-
 
 /* **************************************
  * Build the item view HTML
  * ************************************ */
-Util.buildItemGrid = async function(data){
-  console.log("Data received:", data);  // Add this line
+Util.buildItemGrid = async function(data, reviews = []) {
+  let grid = '<div class="vehicle-display">';
 
-  let grid;
-  if(data != null){
-    grid = '<div id="vehicle-display">'
-    grid += '<img id="vehicle-img" src="' + data.inv_image + ' "alt="Image of '+ data.inv_make + ' ' + data.inv_model 
-        +' on CSE Motors" />'
-    grid += '<h2 id="vehicle-title">' + data.inv_make + ' ' + data.inv_model + ' Details'
-    grid += '<h3 id="vehicle-price">Price: $' + new Intl.NumberFormat('en-US').format(data.inv_price) + '</h3>'
-    grid += '<div id="vehicle-description"><h3>Description: </h3><p>' + data.inv_description + '</p></div>'
-    grid += '<div id="vehicle-color"><h3>Color: </h3><p>' + data.inv_color + '</p></div>' 
-    grid += '<div id="vehicle-miles"><h3>Miles: </h3><p>' + new Intl.NumberFormat('en-US').format(data.inv_miles) + '</p></div>'
-    grid += '</div>'
+  if (data != null) {
+    grid += `
+      <div class="vehicle-image">
+        <img src="${data.inv_image}" alt="Image of ${data.inv_make} ${data.inv_model} on CSE Motors">
+      </div>
+      <div class="vehicle-info">
+        <h2>${data.inv_make} ${data.inv_model} Details</h2>
+        <h3>Price: $${new Intl.NumberFormat('en-US').format(data.inv_price)}</h3>
+        <div class="vehicle-description">
+          <h3>Description:</h3>
+          <p>${data.inv_description}</p>
+        </div>
+        <div class="vehicle-color">
+          <h3>Color:</h3>
+          <p>${data.inv_color}</p>
+        </div>
+        <div class="vehicle-miles">
+          <h3>Miles:</h3>
+          <p>${new Intl.NumberFormat('en-US').format(data.inv_miles)}</p>
+        </div>
+        <div class="vehicle-year">
+          <h3>Year:</h3>
+          <p>${data.inv_year}</p>
+        </div>
+        <div class="review-button">
+          <a href="/account/create-review?inv_id=<%= data.inv_id %>" class="btn-review">Write a Review</a>
+        </div>
+      </div>
+    `;
+
+    if (reviews.length > 0) {
+      grid += `
+        <div class="reviews-section">
+          <h3>Reviews:</h3>
+          ${reviews.map(review => `
+            <div class="review-item">
+              <p><strong>Date:</strong> ${review.review_date}</p>
+              <p>${review.review_text}</p>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
   } else {
-    grid += '<p class="notice">Sorry, no matching vehicle could be found.</p>'
+    grid += '<p class="notice">Sorry, no matching vehicle could be found.</p>';
   }
+
+  grid += '</div>';
   return grid;
 };
 
@@ -173,4 +205,55 @@ Util.checkEmployeeStatus = (req, res, next) => {
   }
 }
 
+/* ****************************************
+ * Build review
+ **************************************** */
+Util.buildReviews = async function (data) {
+  let reviews = "<ul class='reviews'>";
+
+  for (const review of data) {
+    let accountData = await accountModel.getAccountById(review.account_id);
+    let screenName = accountData.account_firstname[0] + ' ' + accountData.account_lastname;
+    let formattedDate = review.review_date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+
+    reviews += "<li>";
+    reviews += "<h3>" + screenName + " wrote on " + formattedDate + "</h3>";
+    reviews += "<p id='clientreview'>" + review.review_text + "</p>";
+    reviews += "</li>";
+  }
+
+  reviews += "</ul>";
+  return reviews;
+};
+
+/* ****************************************
+ * Build client/manage review
+ **************************************** */
+Util.buildClientReviews = async function (reviewsData, res) {
+  let reviews = "<ul class='reviewList'>";
+  for (const review of reviewsData) {
+    let accountData = res.locals.accountData;
+    let screenName =
+      accountData.account_firstname[0] +
+      " " +
+      accountData.account_lastname;
+    let formattedDate = review.review_date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+    reviews += "<li>";
+    reviews += `<h3>${screenName} reviewed the ${review.inv_year} ${review.inv_make} ${review.inv_model} on ${formattedDate}</h3>`;
+    reviews += `<a href="/account/edit-review/${review.review_id}">| Edit |</a>`;
+    reviews += `<a href="/account/delete-review/${review.review_id}"> Delete | </a>`;
+    reviews += "</li>";
+  }
+  
+  reviews += "</ul>";
+  return reviews;
+}
 module.exports = Util
