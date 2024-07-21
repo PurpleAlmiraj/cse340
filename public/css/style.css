@@ -520,6 +520,7 @@ body {
 h1, h2, h3 {
     font-weight: bold;
     margin: 0 0 10px 0;
+    font-size: 1.5vw;
 }
 
 /* Management View Styles */
@@ -744,69 +745,183 @@ h1, h2, h3 {
   cursor: pointer;
   color: blue;
 }
-.vehicle-display {
+
+
+.new-vehicle-display {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  flex-direction: column; 
+  align-items: center; 
   padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
   background-color: #f9f9f9;
+  max-width: 800px; 
+  margin: 0 auto; 
 }
 
-.vehicle-image {
-  flex: 1;
-  margin-right: 20px;
-}
 
-.vehicle-image img {
-  width: 100%;
+.new-vehicle-img {
+  max-width: 100%; 
   height: auto;
-  border-radius: 8px;
+  margin-bottom: 20px;
 }
 
-.vehicle-info {
-  flex: 2;
+.new-vehicle-title,
+.new-vehicle-price,
+.new-vehicle-description,
+.new-vehicle-color,
+.new-vehicle-miles {
+  text-align: center; 
+  margin: 10px 0; 
+
 }
 
-.vehicle-info h2,
-.vehicle-info h3 {
-  margin-top: 0;
+
+.rightinfo {
+  text-align: center; 
 }
 
-.vehicle-description,
-.vehicle-color,
-.vehicle-miles,
-.vehicle-year {
-  margin-bottom: 10px;
+.review-section {
+  text-align: center; 
 }
 
-.review-button {
-  margin-top: 20px;
+.new-reviews,
+.new-review-list {
+  list-style-type: none; 
+  padding: 0;
+  margin: 0;
+  max-width: 800px; 
+  margin: 0 auto; 
 }
 
-.btn-review {
-  display: inline-block;
-  padding: 10px 20px;
-  color: #fff;
-  background-color: #007bff;
-  text-decoration: none;
-  border-radius: 4px;
-}
 
-.btn-review:hover {
-  background-color: #0056b3;
-}
-
-.reviews-section {
-  margin-top: 20px;
-}
-
-.review-item {
+.new-review-item,
+.new-client-review-item {
+  margin-bottom: 20px; 
+  text-align: center; 
   padding: 10px;
-  border-top: 1px solid #ddd;
+  border: 1px solid #ddd; 
+  border-radius: 8px; 
+  background-color: #f9f9f9; 
 }
 
-.review-item:first-child {
-  border-top: none;
+.new-review-author,
+.new-client-review-title {
+  margin: 0 0 10px 0;
+  font-size: 1.2em; 
+}
+
+
+.new-review-text {
+  margin: 0;
+  font-size: 1em; 
+}
+
+.new-client-review-edit,
+.new-client-review-delete {
+  display: inline-block;
+  margin: 5px;
+  text-decoration: none; 
+  color: #007BFF; 
+}
+
+.new-client-review-edit:hover,
+.new-client-review-delete:hover {
+  text-decoration: underline; 
+}
+
+#readreview, #reviewmanagementview {
+  text-align: center;
+}
+
+#screenName {
+  width: 20%;
+  margin: 10px;
+  text-align: center;
+}
+
+button[type="submit"] {
+  margin: 10px; 
+}
+h1 {
+  text-align: center;
+
+}
+
+#loginmessage, 
+#welcomelogin, 
+#managereview {
+  text-align: center; 
+  margin: 30px; 
+  padding: 20px; 
+  background-color: #f9f9f9; 
+  border-radius: 8px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+
+#loginmessage, 
+#welcomelogin, 
+#managereview {
+  font-size: 1.2em; 
+}
+
+.new-vehicle-info {
+  width: 100%;
+}
+.new-vehicle-title{
+  font-size: 1.5vw;
+  text-align: left;
+}
+.new-vehicle-price {
+  color: #007b00;
+}
+
+.create-review-form {
+  max-width: 600px; 
+  margin: 0 auto; 
+  padding: 20px; 
+  background-color: #f9f9f9; 
+  border-radius: 8px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+
+.form-group {
+  margin-bottom: 20px; 
+}
+
+.form-label {
+  display: block; 
+  margin-bottom: 10px; 
+  font-weight: bold; 
+  font-size: 1.1em; 
+}
+
+.form-control {
+  width: 100%; 
+  padding: 10px; 
+  border: 1px solid #ccc; 
+  border-radius: 4px; 
+  font-size: 1em; 
+  box-sizing: border-box; 
+}
+
+.form-button {
+  display: block; 
+  width: 100%; 
+  padding: 10px; 
+  background-color: #007BFF; 
+  color: white; 
+  border: none; 
+  border-radius: 4px;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+.form-button:hover {
+  background-color: #0056b3; 
+}
+#review_date {
+  width: 12%;
+  align-items: center;
+  text-align: center;
 }

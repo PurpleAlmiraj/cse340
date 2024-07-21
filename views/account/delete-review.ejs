@@ -1,36 +1,40 @@
 <% if (title) { %>
-    <h1><%= title %></h1>
-    <% } else { res.redirect('/') } %> <%- messages() %>
-    <!-- Flash messages -->
-    
-    <% if (errors) { %>
-    <ul class="notice">
-      <% errors.array().forEach(error => { %>
-      <li><%= error.msg %></li>
-      <% }) %>
-    </ul>
-    <% } %>
-    
-    <div class="warning-container">
-        <p class="warning-text">Please confirm. A delete cannot be undone.</p>
-      </div>
-      
-      <form class="delete-review-form" action="/account/delete-review" method="post">
-        <div class="form-group">
-          <label for="review_date" class="form-label">Review Date:</label>
-          <input type="text" name="review_date" id="review_date" value="<%= formattedDate %>" readonly class="form-control">
-        </div>
-      
-        <div class="form-group">
-          <label for="review_text" class="form-label">Review Text:</label>
-          <textarea name="review_text" id="review_text" cols="30" rows="10" readonly class="form-control"><%= review.review_text %></textarea>
-        </div>
-      
-        <input type="hidden" name="review_id" value="<%= review.review_id %>">
-        <input type="hidden" name="account_id" value="<%= review.account_id %>">
-        <input type="hidden" name="inv_id" value="<%= review.inv_id %>">
-      
-        <div class="form-group">
-          <button type="submit" class="form-button">Delete</button>
-        </div>
-      </form>
+  <h1><%= title %></h1>
+  <% } else { res.redirect('/') } %> <%- messages() %>
+  <!-- Flash messages -->
+  
+  <% if (errors) { %>
+  <ul class="notice">
+    <% errors.array().forEach(error => { %>
+    <li><%= error.msg %></li>
+    <% }) %>
+  </ul>
+  <% } %>
+  
+  <div>
+    <p id="warning">Please confirm. A delete cannot be undone.</p>
+  </div>
+  
+  <form id="deletereviewform" action="/account/delete-review" method="post">
+    <div>
+      <label for="review_date">Review Date:</label>
+    </div>
+    <div>
+      <input type="text" name="review_date" id="review_date" value="<%= formattedDate %>" readonly>
+    </div>
+  
+    <div>
+      <label for="review_text">Review Text:</label>
+    </div>
+    <div>
+      <textarea name="review_text" id="review_text" cols="30" rows="10" readonly><%= review.review_text %></textarea>
+    </div>
+  
+    <input type="hidden" name="review_id" value="<%= review.review_id %>">
+    <input type="hidden" name="account_id" value="<%= review.account_id %>">
+    <input type="hidden" name="inv_id" value="<%= review.inv_id %>">
+  
+    <div>
+    <button type="submit" class="form-button">Delete</button>
+    </div>
+  </form>

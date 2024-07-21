@@ -1,20 +1,60 @@
 <!-- Content Heading -->
 
 <% if (title) { %>
-    <h1><%= title %></h1>
+  <h1><%= title %></h1>
 <% } else {
-    res.redirect('/')
+  res.redirect('/')
 } %>
-    
+  
 <!-- Message Block -->
-    
+  
 <%# messages() %>
-    
+  
 <!-- Inventory Items Display -->
-    
+  
 <%- grid %>
-<script src="/public/js/script.js" defer></script>
-<script src="/public/js/form-validation.js"></script>
-<script src="/public/js/inventory-validation.js"></script>
-<script src="/public/js/inventory.js"></script>
-<script src="/public/js/inv-update.js"></script>
+
+<div id="readreview">
+<h2 id="readreviewheading">Reviews</h2>
+
+<% if(reviewdata.length === 0) { %>
+    <p id="noreviews">No reviews yet. Be the first to write one!</p>
+  <% } else { %>
+      <%- review %>
+  <% } %>
+</div>
+
+
+<% if(locals.loggedin) { %>
+<div id="reviewmanagementview">
+  <form action="/inv/review/<%= inv_id %>" method="post">
+    <div>
+      <h3>Add Review</h3>
+    </div>
+     
+    <div>
+      <% let screenName = locals.accountData.account_firstname[0] + ' ' + locals.accountData.account_lastname %>
+      <label for="screenName">Screen Name:</label>
+    </div>
+    <div>
+      <input type="text" name="screenName" id="screenName" value="<%= screenName %>" readonly>
+    </div>
+
+    <div>
+      <label for="review_text">Review:</label>
+    </div>
+    <div>
+      <input name="review_text" id="review_text" cols="30" rows="10"></input>
+    </div>
+
+    <input type="hidden" name="inv_id" value="<%= inv_id %>">
+    <input type="hidden" name="account_id" value="<%= locals.accountData.account_id %>">
+
+    <div>
+      <button type="submit">Submit</button>
+    </div>
+  </form>
+</div>
+<% } else { %> 
+<p>You must be <a href="/account/login">logged in</a> to leave a review.</p>
+<% } %>

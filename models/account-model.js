@@ -126,19 +126,5 @@ async function deleteReview(review_id) {
   }
 }
 
-/* ****************************************
- *  Create a new review
- * *************************************** */
-async function createReview(review_date, review_text, inv_id, account_id) {
-  try {
-      const sql = `INSERT INTO reviews (review_date, review_text, inv_id, account_id)
-                   VALUES ($1, $2, $3, $4)`;
-      return await pool.query(sql, [review_date, review_text, inv_id, account_id]);
-  } catch (error) {
-      return error.message;
-  }
-}
 
-
-
-module.exports = { registerAccount, checkExistingEmail, getAccountByEmail, getAccountById, updateInformation, updatePassword, getReviewsByAccountId, getReviewById, updateReview, deleteReview, createReview }
+module.exports = { registerAccount, checkExistingEmail, getAccountByEmail, getAccountById, updateInformation, updatePassword, getReviewsByAccountId, getReviewById, updateReview, deleteReview }

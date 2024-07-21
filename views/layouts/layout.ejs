@@ -1,20 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <%- include('../partials/head') %>
-</head>
+<%- include('../partials/head') %>
+
 <body>
     <div id="wrapper">
         <%- include('../partials/header') %>
         <%- include('../partials/navigation') %>
+
         <main>
             <%- body %>
         </main>
+
         <%- include('../partials/footer') %>
     </div>
-
-    <% if (typeof pageHasPasswordButton !== 'undefined' && pageHasPasswordButton) { %>
-        <script src="/public/js/script.js"></script>
-    <% } %>
 </body>
 </html>

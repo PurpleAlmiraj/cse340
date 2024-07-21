@@ -14,122 +14,84 @@
   <% } %>
   
   <form id="updateForm1" action="/inv/update-vehicle" method="post">
-      <p>
-          <label>Classification</label>
+      <div>
+          <label for="classificationList">Classification</label>
+      </div>
+      <div id="id1">
           <%- dropdown %>
-      </p>
-
-      <p>
-          <label>Make</label>
-          <input 
-              type="text" 
-              id="inventory_make" 
-              name="inv_make" 
-              placeholder="Enter the make"
-              required
-              value="<%= locals.inv_make %>"
-          >
-      </p>
-
-      <p>
-          <label>Model</label>
-          <input 
-              type="text" 
-              id="inventory_model" 
-              name="inv_model" 
-              placeholder="Enter the model"
-              required
-              value="<%= locals.inv_model %>"
-          >
-      </p>
-
-      <p>
-          <label>Year</label>
-          <input 
-              type="number" 
-              id="inventory_year" 
-              name="inv_year" 
-              placeholder="Enter the year"
-              required
-              value="<%= locals.inv_year %>"
-          >
-      </p>
-
-      <p>
-          <label>Description</label>
+      </div>
+  
+      <div>
+          <label for="inventory_make">Make</label>
+      </div>
+      <div id="id2">
+          <input type="text" id="inventory_make" name="inv_make" placeholder="Enter the make" required value="<%= locals.inv_make %>">
+      </div>
+  
+      <div>
+          <label for="inventory_model">Model</label>
+      </div>
+      <div id="id3">
+          <input type="text" id="inventory_model" name="inv_model" placeholder="Enter the model" required value="<%= locals.inv_model %>">
+      </div>
+  
+      <div>
+          <label for="inventory_year">Year</label>
+      </div>
+      <div id="id4">
+          <input type="number" id="inventory_year" name="inv_year" placeholder="Enter the year" required value="<%= locals.inv_year %>">
+      </div>
+  
+      <div>
+          <label for="inventory_description">Description</label>
+      </div>
+      <div id="id5">
           <textarea id="inventory_description" name="inv_description" placeholder="Enter the description" required><%= locals.inv_description %></textarea>
-      </p>
-
-      <p>
-          <label>Image</label>
-          <input 
-              type="text" 
-              id="inventory_image" 
-              name="inv_image" 
-              placeholder="Enter the image"
-              required
-              value="<%= locals.inv_image %>"
-          >
-      </p>
-
-      <p>
-          <label>Thumbnail</label>
-          <input 
-              type="text" 
-              id="inventory_thumbnail" 
-              name="inv_thumbnail" 
-              placeholder="Enter the thumbnail"
-              required
-              value="<%= locals.inv_thumbnail %>"
-          >
-      </p>
-
-      <p>
-          <label>Price</label>
-          <input 
-              type="number" 
-              id="inventory_price" 
-              name="inv_price" 
-              placeholder="Enter the price"
-              required
-              value="<%= locals.inv_price %>"
-          >
-      </p>
-
-      <p>
-          <label>Miles</label>
-          <input 
-              type="number" 
-              id="inventory_miles" 
-              name="inv_miles" 
-              placeholder="Enter the miles"
-              required
-              value="<%= locals.inv_miles %>"
-          >
-      </p>
-
-      <p>
-          <label>Color</label>
-          <input 
-              type="text" 
-              id="inventory_color" 
-              name="inv_color" 
-              placeholder="Enter the color"
-              required
-              value="<%= locals.inv_color %>"
-          >
-      </p>
-      <button id="button1" type="submit" disabled>Update Vehicle</button>
+      </div>
+  
+      <div>
+          <label for="inventory_image">Image</label>
+      </div>
+      <div id="id6">
+          <input type="text" id="inventory_image" name="inv_image" placeholder="Enter the image" required value="<%= locals.inv_image %>">
+      </div>
+  
+      <div>
+          <label for="inventory_thumbnail">Thumbnail</label>
+      </div>
+      <div id="id7">
+          <input type="text" id="inventory_thumbnail" name="inv_thumbnail" placeholder="Enter the thumbnail" required value="<%= locals.inv_thumbnail %>">
+      </div>
+  
+      <div>
+          <label for="inventory_price">Price</label>
+      </div>
+      <div id="id8">
+          <input type="number" id="inventory_price" name="inv_price" placeholder="Enter the price" required value="<%= locals.inv_price %>">
+      </div>
+  
+      <div>
+          <label for="inventory_miles">Miles</label>
+      </div>
+      <div id="id9">
+          <input type="number" id="inventory_miles" name="inv_miles" placeholder="Enter the miles" required value="<%= locals.inv_miles %>">
+      </div>
+  
+      <div>
+          <label for="inventory_color">Color</label>
+      </div>
+      <div>
+          <input type="text" id="inventory_color" name="inv_color" placeholder="Enter the color" required value="<%= locals.inv_color %>">
+      </div>
+  
+      <div id="editbutton">
+          <button id="button1" type="submit" disabled>Update Vehicle</button>
+      </div>
   
       <input type="hidden" name="inv_id"
       <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
       <% } %>>
   
   </form>
-<script src="/js/inv-update.js"></script>
-
-<script src="/public/js/script.js" defer></script>
-<script src="/public/js/form-validation.js"></script>
-<script src="/public/js/inventory-validation.js"></script>
-<script src="/public/js/inventory.js"></script>
-<script src="/public/js/inv-update.js"></script>
+  
+  <script src="/js/inv-update.js"></script>
